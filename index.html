@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Saku Pemilihan Uji Statistik FK UPNVJ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E40AF;
+            --primary-hover: #1e3a8a;
+            --accent: #059669;
+            --accent-hover: #047857;
+            --bg: #F8FAFC;
+            --card-bg: #FFFFFF;
+            --text: #1E293B;
+            --text-light: #64748B;
+            --border: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #60A5FA;
+            --primary-hover: #93C5FD;
+            --accent: #34D399;
+            --accent-hover: #6EE7B7;
+            --bg: #0F172A;
+            --card-bg: #1E293B;
+            --text: #F8FAFC;
+            --text-light: #CBD5E1;
+            --border: #334155;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; transition: var(--transition); }
+        
+        header { background-color: var(--card-bg); padding: 1rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); }
+        .logo-text { font-weight: 700; font-size: 1.25rem; color: var(--primary); }
+        
+        .controls { display: flex; gap: 1rem; align-items: center; }
+        .btn-icon { background: none; border: none; cursor: pointer; color: var(--text); font-size: 1.25rem; padding: 0.5rem; border-radius: 0.5rem; transition: var(--transition); }
+        .btn-icon:hover { background-color: var(--border); }
+        
+        nav { display: flex; overflow-x: auto; background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 0 1rem; }
+        nav::-webkit-scrollbar { display: none; }
+        .tab-btn { padding: 1rem 1.5rem; border: none; background: none; color: var(--text-light); font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: var(--transition); white-space: nowrap; }
+        .tab-btn:hover { color: var(--primary); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+        main { max-width: 800px; margin: 2rem auto; padding: 0 1.5rem; min-height: 70vh; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+        .tab-content.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1, h2, h3 { color: var(--text); margin-bottom: 1rem; }
+        h1 { font-size: 2rem; font-weight: 700; color: var(--primary); }
+        
+        .btn-primary { background-color: var(--primary); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: var(--transition); font-size: 1rem; }
+        .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
+        .btn-accent { background-color: var(--accent); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .btn-accent:hover { background-color: var(--accent-hover); transform: translateY(-2px); }
+        .btn-outline { background-color: transparent; color: var(--text); border: 1px solid var(--border); padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; transition: var(--transition); font-weight: 500; }
+        .btn-outline:hover { background-color: var(--border); }
+
+        /* Accordion */
+        .accordion-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 0.5rem; margin-bottom: 1rem; overflow: hidden; box-shadow: var(--shadow); }
+        .accordion-header { padding: 1.25rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; background: var(--card-bg); transition: var(--transition); }
+        .accordion-header:hover { background-color: var(--border); }
+        .accordion-body { padding: 0; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: var(--card-bg); }
+        .accordion-body.open { padding: 1.25rem; max-height: 1000px; border-top: 1px solid var(--border); }
+
+        /* Cards & Tables */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .card { background: var(--bg); padding: 1.25rem; border-radius: 0.5rem; border: 1px solid var(--border); }
+        .card-title { font-weight: 600; color: var(--primary); margin-bottom: 0.5rem; }
+        
+        .table-container { overflow-x: auto; margin-top: 1rem; border-radius: 0.5rem; border: 1px solid var(--border); }
+        table { width: 100%; border-collapse: collapse; background: var(--card-bg); text-align: left; }
+        th, td { padding: 1rem; border-bottom: 1px solid var(--border); }
+        th { background: var(--bg); font-weight: 600; color: var(--text); }
+        tr:hover { background-color: var(--bg); }
+
+        /* Decision Tree Styles */
+        .tree-container { background: var(--card-bg); padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow); text-align: center; border: 1px solid var(--border); }
+        .breadcrumb { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--text-light); align-items: center; justify-content: center; }
+        .crumb { cursor: pointer; transition: var(--transition); padding: 0.25rem 0.5rem; border-radius: 0.25rem; }
+        .crumb:hover { background: var(--border); color: var(--text); }
+        .crumb-sep { color: var(--border); }
+        .question-text { font-size: 1.5rem; font-weight: 600; margin-bottom: 2rem; color: var(--text); }
+        .choices { display: flex; flex-direction: column; gap: 1rem; max-width: 400px; margin: 0 auto; }
+        .choice-btn { background: var(--bg); border: 2px solid var(--primary); color: var(--primary); padding: 1rem; border-radius: 0.5rem; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: var(--transition); }
+        .choice-btn:hover { background: var(--primary); color: white; transform: scale(1.02); }
+        .hint { font-size: 0.875rem; color: var(--text-light); margin-top: 0.5rem; display: block; font-weight: 400; }
+        
+        /* Result Node */
+        .result-node { display: none; text-align: left; }
+        .result-title { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.5rem; text-align: center; }
+        .result-desc { text-align: center; font-size: 1.1rem; color: var(--text-light); margin-bottom: 2rem; }
+        .spss-path { background: var(--bg); padding: 1rem; border-radius: 0.5rem; font-family: monospace; border: 1px solid var(--border); margin: 1rem 0; display: inline-block; width: 100%; word-break: break-all; }
+        .spss-path span { color: var(--accent); font-weight: bold; }
+        
+        ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.5rem; }
+
+        /* Search Bar */
+        .search-container { position: relative; margin-bottom: 2rem; }
+        .search-input { width: 100%; padding: 1rem 1rem 1rem 2.5rem; border-radius: 0.5rem; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 1rem; transition: var(--transition); }
+        .search-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.2); }
+        .search-icon { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-light); }
+        .search-results { position: absolute; top: 100%; left: 0; right: 0; background: var(--card-bg); border: 1px solid var(--border); border-top: none; border-radius: 0 0 0.5rem 0.5rem; box-shadow: var(--shadow); z-index: 10; display: none; max-height: 200px; overflow-y: auto; }
+        .search-item { padding: 0.75rem 1rem; cursor: pointer; transition: var(--transition); }
+        .search-item:hover { background: var(--bg); color: var(--primary); }
+
+        /* Animations */
+        .svg-anim path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: dash 2s ease-in-out forwards; }
+        @keyframes dash { to { stroke-dashoffset: 0; } }
+        .warning-box { background-color: #FEF2F2; border-left: 4px solid #EF4444; padding: 1rem; margin: 1rem 0; color: #991B1B; border-radius: 0 0.5rem 0.5rem 0; }
+        [data-theme="dark"] .warning-box { background-color: #450A0A; color: #FECACA; border-left-color: #F87171; }
+
+        /* Print Styles */
+        @media print {
+            body { background: white; color: black; }
+            header, nav, .search-container, .btn-primary, .btn-accent, .controls { display: none !important; }
+            main { margin: 0; padding: 0; max-width: 100%; }
+            .tab-content { display: none; }
+            #tab-rangkuman { display: block; }
+            .table-container { border: none; overflow: visible; }
+            table, th, td { border: 1px solid black; }
+            @page { size: landscape; margin: 1cm; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-text">StatsFlow FK UPNVJ</div>
+        <div class="controls">
+            <button class="btn-icon" id="themeToggle" title="Toggle Dark Mode">🌙</button>
+            <button class="btn-icon" id="printBtn" title="Cetak Cheat Sheet" onclick="window.print()">🖨️</button>
+        </div>
+    </header>
+
+    <nav>
+        <button class="tab-btn active" onclick="openTab('tab-beranda')">Beranda</button>
+        <button class="tab-btn" onclick="openTab('tab-konsep')">Konsep Dasar</button>
+        <button class="tab-btn" onclick="openTab('tab-tree')">Alur Keputusan</button>
+        <button class="tab-btn" onclick="openTab('tab-rangkuman')">Rangkuman</button>
+        <button class="tab-btn" onclick="openTab('tab-tentang')">Tentang</button>
+    </nav>
+
+    <main>
+        <section id="tab-beranda" class="tab-content active">
+            <div style="text-align: center; padding: 3rem 0;">
+                <h1>Panduan Praktis Uji Statistik</h1>
+                <p style="font-size: 1.25rem; color: var(--text-light); margin-bottom: 2rem;">Navigasi pemilihan uji bivariat untuk proposal skripsi Mahasiswa Kedokteran.</p>
+                <button class="btn-primary" style="font-size: 1.25rem; padding: 1rem 2rem;" onclick="openTab('tab-tree')">Mulai Pemilihan Uji 🚀</button>
+                
+                <div class="card-grid" style="margin-top: 3rem;">
+                    <div class="card">
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--accent);">15</div>
+                        <div class="card-title">Uji Statistik</div>
+                        <p style="font-size: 0.875rem; color: var(--text-light);">Tercakup dalam algoritma lengkap</p>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--accent);">45</div>
+                        <div class="card-title">Contoh Judul</div>
+                        <p style="font-size: 0.875rem; color: var(--text-light);">Relevan dengan riset biomedik & klinis</p>
+                    </div>
+                    <div class="card">
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--accent);">100%</div>
+                        <div class="card-title">Panduan SPSS</div>
+                        <p style="font-size: 0.875rem; color: var(--text-light);">Langkah demi langkah klik menu</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-konsep" class="tab-content">
+            <h2>Konsep Dasar Statistik Biomedik</h2>
+            <p style="color: var(--text-light); margin-bottom: 1.5rem;">Pahami 4 pilar ini sebelum menggunakan alur keputusan.</p>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    1. Skala Pengukuran (NOIR) <span>▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>Skala pengukuran menentukan jenis uji yang dapat digunakan. Dikelompokkan menjadi dua besar: <strong>Kategorik</strong> dan <strong>Numerik</strong>.</p>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>Kelompok</th>
+                                <th>Skala</th>
+                                <th>Sifat</th>
+                                <th>Contoh Data Klinis</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="font-weight: bold; color: var(--accent);">Kategorik</td>
+                                <td>Nominal</td>
+                                <td>Hanya membedakan, tidak ada urutan</td>
+                                <td>Jenis kelamin (L/P), Golongan darah (A/B/AB/O), Status merokok (Ya/Tidak)</td>
+                            </tr>
+                            <tr>
+                                <td>Ordinal</td>
+                                <td>Ada tingkatan/urutan yang bermakna</td>
+                                <td>Derajat nyeri (Ringan/Sedang/Berat), Stadium Kanker (I-IV), Skala Likert</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="font-weight: bold; color: var(--primary);">Numerik</td>
+                                <td>Interval</td>
+                                <td>Ada jarak pasti, nilai 0 mutlak tidak ada</td>
+                                <td>Suhu tubuh (°C), Skor IQ, Skor HARS</td>
+                            </tr>
+                            <tr>
+                                <td>Rasio</td>
+                                <td>Ada kelipatan, memiliki nilai 0 mutlak</td>
+                                <td>Berat badan (kg), Tekanan darah (mmHg), Kadar Hb (g/dL), Jumlah koloni bakteri</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    2. Tujuan Penelitian <span>▼</span>
+                </div>
+                <div class="accordion-body">
+                    <div class="card-grid">
+                        <div class="card">
+                            <div class="card-title">Uji Beda (Komparasi)</div>
+                            <p><strong>Fokus:</strong> Membandingkan nilai antar kelompok.</p>
+                            <p><strong>Kata kunci di judul:</strong> "Perbedaan", "Perbandingan", "Efektivitas".</p>
+                            <p style="font-size: 0.875rem; margin-top: 0.5rem; color: var(--text-light);"><em>Contoh: Apakah tekanan darah kelompok intervensi berbeda dari kontrol?</em></p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Uji Hubungan (Korelasi)</div>
+                            <p><strong>Fokus:</strong> Melihat kaitan antara dua variabel sejajar.</p>
+                            <p><strong>Kata kunci di judul:</strong> "Hubungan", "Korelasi", "Asosiasi".</p>
+                            <p style="font-size: 0.875rem; margin-top: 0.5rem; color: var(--text-light);"><em>Contoh: Apakah ada hubungan antara status merokok dan kejadian asma?</em></p>
+                        </div>
+                        <div class="card">
+                            <div class="card-title">Uji Prediksi (Regresi)</div>
+                            <p><strong>Fokus:</strong> Memprediksi variabel dependen berdasarkan independen.</p>
+                            <p><strong>Kata kunci di judul:</strong> "Pengaruh", "Prediksi", "Faktor Risiko", "Model".</p>
+                            <p style="font-size: 0.875rem; margin-top: 0.5rem; color: var(--text-light);"><em>Contoh: Apakah IMT dapat memprediksi tekanan darah sistolik?</em></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    3. Berpasangan vs Independen <span>▼</span>
+                </div>
+                <div class="accordion-body">
+                    <div style="display: flex; gap: 2rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap;">
+                        <div style="text-align: center;">
+                            <div class="card-title">Berpasangan (Paired)</div>
+                            <svg width="150" height="80" viewBox="0 0 150 80">
+                                <circle cx="30" cy="40" r="15" fill="var(--accent)" />
+                                <circle cx="120" cy="40" r="15" fill="var(--accent)" />
+                                <path d="M 50 40 L 100 40" stroke="var(--text)" stroke-width="2" stroke-dasharray="5,5" />
+                                <text x="75" y="30" text-anchor="middle" font-size="10" fill="var(--text)">1 Subjek, 2 Waktu</text>
+                            </svg>
+                        </div>
+                        <div style="text-align: center;">
+                            <div class="card-title">Independen (Unpaired)</div>
+                            <svg width="150" height="80" viewBox="0 0 150 80">
+                                <circle cx="30" cy="20" r="15" fill="var(--primary)" />
+                                <circle cx="120" cy="60" r="15" fill="#EF4444" />
+                                <path d="M 50 20 L 100 60" stroke="var(--text)" stroke-width="2" />
+                                <text x="75" y="35" text-anchor="middle" font-size="10" fill="var(--text)">Subjek Berbeda</text>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>Kriteria</th>
+                                <th>Berpasangan</th>
+                                <th>Independen</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Subjek</strong></td>
+                                <td>Orang yang sama (atau sengaja dipasangkan/matching)</td>
+                                <td>Orang yang berbeda di tiap kelompok</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Desain Khas</strong></td>
+                                <td>Pre-test & Post-test, Cross-over</td>
+                                <td>Kasus-Kontrol, Intervensi vs Plasebo</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="warning-box">
+                        <strong>Kesalahan umum:</strong> Mengukur Pre dan Post pada SATU kelompok perlakuan merupakan analisis BERPASANGAN, bukan membandingkan dua kelompok independen.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    4. Distribusi Normal <span>▼</span>
+                </div>
+                <div class="accordion-body">
+                    <p>Syarat utama uji parametrik (untuk data numerik) adalah distribusi data normal.</p>
+                    <div style="display: flex; gap: 2rem; justify-content: center; margin: 1rem 0; flex-wrap: wrap;">
+                        <svg class="svg-anim" width="200" height="100" viewBox="0 0 200 100">
+                            <path d="M 10 90 Q 60 90 80 50 T 100 10 T 120 50 T 190 90" fill="none" stroke="var(--primary)" stroke-width="3"/>
+                            <text x="100" y="95" text-anchor="middle" font-size="12" fill="var(--text)">Distribusi Normal (Parametrik)</text>
+                        </svg>
+                        <svg class="svg-anim" width="200" height="100" viewBox="0 0 200 100">
+                            <path d="M 10 90 Q 30 90 40 20 T 80 60 T 190 90" fill="none" stroke="#EF4444" stroke-width="3"/>
+                            <text x="100" y="95" text-anchor="middle" font-size="12" fill="var(--text)">Tidak Normal (Non-Parametrik/Skewed)</text>
+                        </svg>
+                    </div>
+                    
+                    <h3>Langkah SPSS Uji Normalitas:</h3>
+                    <ol>
+                        <li>Klik <span style="background: var(--bg); padding: 2px 6px; border-radius: 4px;">Analyze</span> > <span style="background: var(--bg); padding: 2px 6px; border-radius: 4px;">Descriptive Statistics</span> > <span style="background: var(--bg); padding: 2px 6px; border-radius: 4px;">Explore...</span></li>
+                        <li>Masukkan variabel numerik ke kotak <em>Dependent List</em>.</li>
+                        <li>Klik tombol <strong>Plots...</strong></li>
+                        <li>Centang <strong>Normality plots with tests</strong>, lalu klik Continue dan OK.</li>
+                    </ol>
+                    
+                    <p style="margin-top: 1rem;"><strong>Cara Baca Output (Kolom Shapiro-Wilk untuk n &lt; 50 atau Kolmogorov-Smirnov untuk n &ge; 50):</strong></p>
+                    <ul>
+                        <li>Nilai Sig. (p-value) &gt; 0,05 = Data berdistribusi Normal &rarr; Gunakan <strong>Uji Parametrik</strong></li>
+                        <li>Nilai Sig. (p-value) &le; 0,05 = Data Tidak Normal &rarr; Gunakan <strong>Uji Non-Parametrik</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="tab-tree" class="tab-content">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" class="search-input" id="searchInput" placeholder="Cari nama uji (mis. Chi-Square) atau kata kunci..." autocomplete="off">
+                <div class="search-results" id="searchResults"></div>
+            </div>
+
+            <div class="tree-container" id="quiz-container">
+                <div class="breadcrumb" id="breadcrumb">
+                    </div>
+                <div id="progress-text" style="font-size: 0.875rem; color: var(--accent); font-weight: bold; margin-bottom: 0.5rem;">Langkah 1</div>
+                <div class="question-text" id="question">Memuat pertanyaan...</div>
+                <div class="choices" id="choices">
+                    </div>
+            </div>
+
+            <div class="tree-container result-node" id="result-container">
+                <h2 class="result-title" id="result-name">Nama Uji</h2>
+                <p class="result-desc" id="result-desc">Deskripsi singkat</p>
+                
+                <div style="text-align: left;">
+                    <h3 style="font-size: 1.1rem;">Kapan Digunakan</h3>
+                    <p id="result-kapan" style="margin-bottom: 1rem;"></p>
+                    
+                    <h3 style="font-size: 1.1rem;">Syarat Uji</h3>
+                    <ul id="result-syarat"></ul>
+                    
+                    <h3 style="font-size: 1.1rem;">Menu SPSS</h3>
+                    <div class="spss-path" id="result-spss"></div>
+                    
+                    <h3 style="font-size: 1.1rem; margin-top: 1.5rem;">Contoh Judul Penelitian</h3>
+                    <div class="card-grid" id="result-examples" style="margin-bottom: 2rem;">
+                        </div>
+                </div>
+                
+                <button class="btn-primary" onclick="startTree()">🔄 Mulai Ulang Alur</button>
+            </div>
+        </section>
+
+        <section id="tab-rangkuman" class="tab-content print-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2>Tabel Rangkuman Uji Statistik</h2>
+                <p style="font-size: 0.875rem; color: var(--text-light);">Klik nama uji untuk melihat detail</p>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tujuan</th>
+                            <th>Var Dependen</th>
+                            <th>Jumlah Kelompok</th>
+                            <th>Desain</th>
+                            <th>Parametrik (Normal)</th>
+                            <th>Non-Parametrik (Tdk Normal / Kategorik)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="4">Beda Numerik</td>
+                            <td rowspan="4">Numerik</td>
+                            <td rowspan="2">2 Kelompok</td>
+                            <td>Berpasangan</td>
+                            <td><a href="#" onclick="showResult('Paired T-Test', event)" style="color: var(--primary);">Paired T-Test</a></td>
+                            <td><a href="#" onclick="showResult('Wilcoxon', event)" style="color: var(--primary);">Wilcoxon</a></td>
+                        </tr>
+                        <tr>
+                            <td>Independen</td>
+                            <td><a href="#" onclick="showResult('Independent T-Test', event)" style="color: var(--primary);">Independent T-Test</a></td>
+                            <td><a href="#" onclick="showResult('Mann-Whitney', event)" style="color: var(--primary);">Mann-Whitney</a></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">> 2 Kelompok</td>
+                            <td>Berpasangan</td>
+                            <td><a href="#" onclick="showResult('Repeated Measures ANOVA', event)" style="color: var(--primary);">Repeated Measures ANOVA</a></td>
+                            <td><a href="#" onclick="showResult('Friedman', event)" style="color: var(--primary);">Friedman</a></td>
+                        </tr>
+                        <tr>
+                            <td>Independen</td>
+                            <td><a href="#" onclick="showResult('One-Way ANOVA', event)" style="color: var(--primary);">One-Way ANOVA</a></td>
+                            <td><a href="#" onclick="showResult('Kruskal-Wallis', event)" style="color: var(--primary);">Kruskal-Wallis</a></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">Beda Kategorik</td>
+                            <td rowspan="3">Kategorik</td>
+                            <td rowspan="2">2 Kelompok</td>
+                            <td>Berpasangan</td>
+                            <td>-</td>
+                            <td><a href="#" onclick="showResult('McNemar', event)" style="color: var(--primary);">McNemar</a></td>
+                        </tr>
+                        <tr>
+                            <td>Independen</td>
+                            <td>-</td>
+                            <td><a href="#" onclick="showResult('Chi-Square', event)" style="color: var(--primary);">Chi-Square</a> / <a href="#" onclick="showResult('Fisher Exact', event)" style="color: var(--primary);">Fisher</a></td>
+                        </tr>
+                        <tr>
+                            <td>> 2 Kelompok</td>
+                            <td>Berpasangan</td>
+                            <td>-</td>
+                            <td><a href="#" onclick="showResult('Cochran Q', event)" style="color: var(--primary);">Cochran Q</a></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">Hubungan</td>
+                            <td>Numerik</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><a href="#" onclick="showResult('Pearson', event)" style="color: var(--primary);">Pearson</a></td>
+                            <td><a href="#" onclick="showResult('Spearman', event)" style="color: var(--primary);">Spearman</a></td>
+                        </tr>
+                        <tr>
+                            <td>Kategorik</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><a href="#" onclick="showResult('Chi-Square', event)" style="color: var(--primary);">Chi-Square</a> / <a href="#" onclick="showResult('Regresi Logistik', event)" style="color: var(--primary);">Reg Logistik (OR)</a></td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">Prediksi</td>
+                            <td>Numerik</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><a href="#" onclick="showResult('Regresi Linear', event)" style="color: var(--primary);">Regresi Linear</a></td>
+                            <td>-</td>
+                        </tr>
+                        <tr>
+                            <td>Kategorik</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td><a href="#" onclick="showResult('Regresi Logistik', event)" style="color: var(--primary);">Regresi Logistik</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="tab-tentang" class="tab-content">
+            <h2>Tentang Buku Saku</h2>
+            <div class="card" style="margin-bottom: 2rem;">
+                <p><strong>Penulis:</strong> Syarif Rahman Hasibuan, SKM, MKM</p>
+                <p><strong>Jabatan:</strong> Dosen Fakultas Kedokteran UPN "Veteran" Jakarta</p>
+                <p><strong>Konteks:</strong> Produk ini adalah bagian dari Rancangan Aktualisasi Latsar CPNS 2026. Ditujukan untuk memfasilitasi mahasiswa kedokteran (khususnya semester 6) dalam menyusun proposal skripsi.</p>
+                <div style="margin-top: 1rem;">
+                    <a href="https://github.com" target="_blank" class="btn-outline" style="display: inline-block; text-decoration: none;">Lihat Repository GitHub</a>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <strong>Catatan Penting:</strong> Cakupan buku saku ini secara khusus dibatasi pada <strong>uji bivariat</strong> dasar yang diajarkan pada kurikulum <em>Research Course</em> FK UPNVJ. Kasus multivariat kompleks atau uji non-parametrik spesifik lainnya mungkin membutuhkan konsultasi lebih lanjut dengan pembimbing.
+            </div>
+
+            <h3>Daftar Pustaka Utama:</h3>
+            <ul>
+                <li>Dahlan MS. (2014). <em>Statistik untuk Kedokteran dan Kesehatan</em> (Edisi 6). Epidemiologi Indonesia.</li>
+                <li>Field A. (2018). <em>Discovering Statistics Using IBM SPSS Statistics</em> (5th ed.). SAGE Publications.</li>
+                <li>Hastono SP. (2016). <em>Analisis Data Pada Bidang Kesehatan</em>. Rajawali Pers.</li>
+                <li>Notoatmodjo S. (2018). <em>Metodologi Penelitian Kesehatan</em>. Rineka Cipta.</li>
+                <li>Sopiyudin DM. (2012). <em>Langkah-Langkah Membuat Proposal Penelitian Bidang Kedokteran dan Kesehatan</em>. Sagung Seto.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        // --- DATA BUKU SAKU ---
+        const treeData = {
+            start: {
+                text: "Apa tujuan utama penelitian Anda?",
+                choices: [
+                    { label: "Uji Beda (Komparasi)", next: "beda_var_dep", hint: "Membandingkan antar kelompok (efektivitas, perbedaan)." },
+                    { label: "Uji Hubungan (Korelasi)", next: "hub_var_dep", hint: "Melihat hubungan sejajar (asosiasi, korelasi)." },
+                    { label: "Uji Prediksi (Regresi)", next: "prediksi_var_dep", hint: "Memprediksi atau melihat pengaruh prediktor." }
+                ]
+            },
+            // CABANG BEDA
+            beda_var_dep: {
+                text: "Apa jenis skala pengukuran variabel Dependen (Terikat)?",
+                choices: [
+                    { label: "Kategorik", next: "beda_kat_kel", hint: "Nominal/Ordinal: Kategori berupa kata/tingkatan (Mis: Jenis kelamin, Tingkat nyeri)." },
+                    { label: "Numerik", next: "beda_num_kel", hint: "Interval/Rasio: Angka hasil pengukuran aktual (Mis: Kadar Hb, Tekanan Darah)." }
+                ]
+            },
+            beda_kat_kel: {
+                text: "Berapa jumlah kelompok yang dibandingkan?",
+                choices: [
+                    { label: "2 Kelompok", next: "beda_kat_2_pasang" },
+                    { label: "> 2 Kelompok", next: "beda_kat_m_pasang" }
+                ]
+            },
+            beda_kat_2_pasang: {
+                text: "Apakah data berasal dari kelompok yang Berpasangan?",
+                choices: [
+                    { label: "Ya (Berpasangan)", result: "McNemar", hint: "Data dari subjek yang SAMA, diukur 2x. Contoh: Pengetahuan sebelum dan sesudah." },
+                    { label: "Tidak (Independen)", next: "beda_kat_2_indep_exp", hint: "Data dari subjek yang BERBEDA (Misal: Kelompok perlakuan vs kontrol)." }
+                ]
+            },
+            beda_kat_2_indep_exp: {
+                text: "Bagaimana nilai Expected Count (Harapan) pada tabel silang?",
+                choices: [
+                    { label: "Semua sel ≥ 5", result: "Chi-Square", hint: "Lihat footnote tabel Chi-Square di SPSS. Tidak ada sel dengan expected count < 5." },
+                    { label: "Ada sel < 5", result: "Fisher Exact", hint: "Lihat footnote tabel Chi-Square di SPSS. Jika ada sel < 5, gunakan Fisher." }
+                ]
+            },
+            beda_kat_m_pasang: {
+                text: "Apakah data berasal dari kelompok yang Berpasangan?",
+                choices: [
+                    { label: "Ya (Berpasangan)", result: "Cochran Q", hint: "1 kelompok diukur 3x atau lebih." },
+                    { label: "Tidak (Independen)", result: "Chi-Square", hint: "Lebih dari 2 kelompok yang anggotanya berbeda." }
+                ]
+            },
+            beda_num_kel: {
+                text: "Berapa jumlah kelompok yang dibandingkan?",
+                choices: [
+                    { label: "2 Kelompok", next: "beda_num_2_pasang" },
+                    { label: "> 2 Kelompok", next: "beda_num_m_pasang" }
+                ]
+            },
+            beda_num_2_pasang: {
+                text: "Apakah data berasal dari kelompok yang Berpasangan?",
+                choices: [
+                    { label: "Ya (Berpasangan)", next: "beda_num_2_p_norm", hint: "Data dari subjek yang SAMA (Misal pre vs post)." },
+                    { label: "Tidak (Independen)", next: "beda_num_2_i_norm", hint: "Data dari subjek yang BERBEDA." }
+                ]
+            },
+            beda_num_2_p_norm: {
+                text: "Apakah sebaran data (selisih) berdistribusi Normal?",
+                choices: [
+                    { label: "Ya (Normal)", result: "Paired T-Test", hint: "p-value Shapiro-Wilk > 0.05" },
+                    { label: "Tidak Normal", result: "Wilcoxon", hint: "p-value Shapiro-Wilk ≤ 0.05" }
+                ]
+            },
+            beda_num_2_i_norm: {
+                text: "Apakah sebaran data berdistribusi Normal?",
+                choices: [
+                    { label: "Ya (Normal)", result: "Independent T-Test", hint: "p-value Shapiro-Wilk > 0.05" },
+                    { label: "Tidak Normal", result: "Mann-Whitney", hint: "p-value Shapiro-Wilk ≤ 0.05" }
+                ]
+            },
+            beda_num_m_pasang: {
+                text: "Apakah data berasal dari kelompok yang Berpasangan?",
+                choices: [
+                    { label: "Ya (Berpasangan)", next: "beda_num_m_p_norm", hint: "Misal: Pengukuran jam ke-1, jam ke-2, jam ke-3." },
+                    { label: "Tidak (Independen)", next: "beda_num_m_i_norm", hint: "Misal: Kontrol, Dosis 1, Dosis 2." }
+                ]
+            },
+            beda_num_m_p_norm: {
+                text: "Apakah sebaran data berdistribusi Normal?",
+                choices: [
+                    { label: "Ya (Normal)", result: "Repeated Measures ANOVA" },
+                    { label: "Tidak Normal", result: "Friedman" }
+                ]
+            },
+            beda_num_m_i_norm: {
+                text: "Apakah sebaran data berdistribusi Normal?",
+                choices: [
+                    { label: "Ya (Normal)", result: "One-Way ANOVA" },
+                    { label: "Tidak Normal", result: "Kruskal-Wallis" }
+                ]
+            },
+            // CABANG HUBUNGAN
+            hub_var_dep: {
+                text: "Apa jenis variabel yang dihubungkan?",
+                choices: [
+                    { label: "Kategorik dengan Kategorik", next: "hub_kat_kedalaman" },
+                    { label: "Numerik dengan Numerik", next: "hub_num_normal" }
+                ]
+            },
+            hub_kat_kedalaman: {
+                text: "Seberapa dalam analisis yang diinginkan?",
+                choices: [
+                    { label: "Hanya nilai p-value (signifikansi)", next: "hub_kat_exp", hint: "Hanya ingin tahu ada hubungan atau tidak." },
+                    { label: "Mencari besar asosiasi (Odds Ratio/OR)", result: "Regresi Logistik", hint: "Ingin mengetahui berapa kali lipat risiko." }
+                ]
+            },
+            hub_kat_exp: {
+                text: "Bagaimana nilai Expected Count (Harapan)?",
+                choices: [
+                    { label: "Semua sel ≥ 5", result: "Chi-Square" },
+                    { label: "Ada sel < 5", result: "Fisher Exact" }
+                ]
+            },
+            hub_num_normal: {
+                text: "Apakah kedua variabel berdistribusi Normal?",
+                choices: [
+                    { label: "Ya (Keduanya Normal)", result: "Pearson" },
+                    { label: "Tidak (Salah satu / Keduanya Tidak Normal)", result: "Spearman" }
+                ]
+            },
+            // CABANG PREDIKSI
+            prediksi_var_dep: {
+                text: "Apa jenis skala pengukuran variabel Dependen (Terikat)?",
+                choices: [
+                    { label: "Kategorik", result: "Regresi Logistik", hint: "Misal: Lulus/Tidak Lulus, Hidup/Mati." },
+                    { label: "Numerik", result: "Regresi Linear", hint: "Misal: Memprediksi angka tekanan darah (mmHg)." }
+                ]
+            }
+        };
+
+        const resultData = {
+            "Chi-Square": {
+                desc: "Uji parametrik/non-parametrik untuk variabel kategorik (komparatif independen atau korelatif).",
+                kapan: "Digunakan ketika peneliti ingin membandingkan proporsi dua atau lebih kelompok independen dengan variabel terikat kategorik, ATAU melihat hubungan antar dua variabel kategorik.",
+                syarat: ["Variabel terikat: Kategorik", "Variabel bebas: Kategorik", "Kelompok: Independen", "Syarat mutlak: Sel dengan expected count < 5 tidak boleh lebih dari 20% (untuk tabel > 2x2) atau tidak boleh ada (untuk 2x2)."],
+                spss: "Analyze > Descriptive Statistics > Crosstabs > Centang Statistics: Chi-square",
+                examples: [
+                    "Perbedaan Proporsi Kejadian Infeksi Saluran Kemih antara Pasien dengan Kateter Foley dan Kateter Suprapubik di RS Tipe A Bandung",
+                    "Hubungan Kebiasaan Sarapan dengan Konsentrasi Belajar pada Siswa SMA di Kecamatan Kebayoran Baru Jakarta Selatan",
+                    "Perbedaan Prevalensi Gangguan Tidur pada Mahasiswa Fakultas Kedokteran, Farmasi, dan Kesehatan Masyarakat Universitas X"
+                ]
+            },
+            "Fisher Exact": {
+                desc: "Alternatif pengganti Chi-Square jika syarat expected count tidak terpenuhi.",
+                kapan: "Digunakan persis seperti Chi-Square (tabel 2x2), namun untuk sampel kecil atau ketika distribusi data dalam tabel silang menghasilkan nilai harapan yang kecil.",
+                syarat: ["Tabel kontingensi 2x2", "Ada sel dengan expected count < 5"],
+                spss: "Analyze > Descriptive Statistics > Crosstabs > Centang Statistics: Chi-square (Nilai Fisher Exact Test akan otomatis muncul untuk tabel 2x2).",
+                examples: [
+                    "Perbedaan Kejadian Reaksi Anafilaksis antara Pasien yang Mendapat Kontras Ionik dan Non-Ionik pada Sampel Kecil (n=30) di Instalasi Radiologi RS Fatmawati",
+                    "Hubungan Polimorfisme Gen NAT2 dengan Hepatotoksisitas Isoniazid pada Pasien TB di RS Rujukan Kota Semarang (n=28)",
+                    "Hubungan Jenis Persalinan dengan Kejadian Asfiksia Neonatorum pada Bayi Prematur di NICU RS Tipe C Kota Cimahi (n=19)"
+                ]
+            },
+            "McNemar": {
+                desc: "Uji untuk membandingkan proporsi dua kelompok yang berpasangan (kategorik).",
+                kapan: "Paling sering digunakan pada desain Pre-Test dan Post-Test dimana hasilnya berupa kategori (misal: Sembuh/Tidak Sembuh, Lulus/Tidak Lulus).",
+                syarat: ["Variabel kategorik dikotom (2 kategori)", "Dua kelompok berpasangan (subjek sama)"],
+                spss: "Analyze > Nonparametric Tests > Legacy Dialogs > 2 Related Samples > Centang McNemar",
+                examples: [
+                    "Perbedaan Proporsi Pengetahuan (Baik/Kurang) Mahasiswa tentang Pencegahan HIV Sebelum dan Sesudah Penyuluhan di Puskesmas Kecamatan Tebet",
+                    "Perubahan Status Kepatuhan Cuci Tangan Perawat IGD Sebelum dan Sesudah Pelatihan Hand Hygiene di RS Tipe B Jakarta Selatan",
+                    "Perbandingan Status Anemia Ibu Hamil Sebelum dan Sesudah Suplementasi Tablet Fe Selama 90 Hari di Puskesmas Pancoran Mas Depok"
+                ]
+            },
+            "Cochran Q": {
+                desc: "Uji beda lebih dari dua kelompok berpasangan untuk data kategorik.",
+                kapan: "Digunakan bila pengukuran berulang dilakukan lebih dari dua kali (misal: sebelum, sesudah 1 minggu, sesudah 1 bulan) dengan hasil kategorik dikotom.",
+                syarat: ["Variabel kategorik dikotom", "> 2 kelompok berpasangan"],
+                spss: "Analyze > Nonparametric Tests > Legacy Dialogs > K Related Samples > Centang Cochran's Q",
+                examples: [
+                    "Perbedaan Proporsi Kelulusan Mahasiswa Kedokteran pada Ujian Blok Kardiovaskular, Respirasi, dan Gastrointestinal di FK Universitas X",
+                    "Perbandingan Tingkat Kepatuhan Kontrol Pasien DM Tipe 2 pada Kunjungan Bulan ke-1, ke-3, dan ke-6 di Puskesmas Kecamatan Jatinegara",
+                    "Perbedaan Ketuntasan Imunisasi Bayi pada Imunisasi BCG, DPT-1, dan Campak di Posyandu Kelurahan Cililitan Jakarta Timur"
+                ]
+            },
+            "Regresi Logistik": {
+                desc: "Uji prediksi atau uji besar asosiasi dengan dependen kategorik.",
+                kapan: "Digunakan untuk memprediksi probabilitas kejadian (dikotom) berdasarkan satu atau lebih variabel independen, atau menghitung nilai Odds Ratio (OR).",
+                syarat: ["Variabel dependen kategorik (biasanya nominal dikotom)", "Variabel independen bebas (kategorik/numerik)"],
+                spss: "Analyze > Regression > Binary Logistic",
+                examples: [
+                    "Besar Risiko Paparan Asap Rokok di Rumah terhadap Kejadian ISPA pada Balita di Kelurahan Duren Sawit Jakarta Timur: Analisis Odds Ratio",
+                    "Faktor Prediktor Kejadian Sepsis Neonatorum Berdasarkan Berat Lahir, Usia Gestasi, dan Jenis Persalinan di NICU RS Tipe A Kota Padang",
+                    "Model Prediksi Kelulusan Ujian Kompetensi Kedokteran Berdasarkan IPK, Skor Try Out, dan Keikutsertaan Bimbingan Belajar di FK Universitas X"
+                ]
+            },
+            "Independent T-Test": {
+                desc: "Uji parametrik untuk membandingkan rerata 2 kelompok independen.",
+                kapan: "Digunakan bila ingin melihat perbedaan nilai ukur murni (angka pasti) antara dua kelompok yang orangnya sama sekali berbeda.",
+                syarat: ["Variabel dependen: Numerik", "2 Kelompok independen", "Distribusi data normal (Sig. > 0.05)"],
+                spss: "Analyze > Compare Means > Independent-Samples T Test",
+                examples: [
+                    "Perbedaan Rerata Kadar Hemoglobin antara Ibu Hamil Trimester III yang Mendapat Suplementasi Fe-Folat dan Fe Saja di Puskesmas Cipayung Jakarta Timur",
+                    "Perbandingan Rerata Lama Rawat Inap Pasien Pneumonia Komunitas yang Mendapat Levofloxacin dan Ceftriaxone di RS Tipe B Tangerang",
+                    "Perbedaan Rerata Berat Badan Lahir antara Bayi dari Ibu dengan Anemia dan Ibu Tanpa Anemia di RS Bersalin Kota Medan"
+                ]
+            },
+            "Paired T-Test": {
+                desc: "Uji parametrik untuk membandingkan rerata 2 kelompok berpasangan.",
+                kapan: "Paling lazim pada uji efektivitas perlakuan dengan membandingkan skor numerik pre-test dan post-test pada orang yang sama.",
+                syarat: ["Variabel dependen: Numerik", "2 Kelompok berpasangan", "Distribusi selisih data normal"],
+                spss: "Analyze > Compare Means > Paired-Samples T Test",
+                examples: [
+                    "Perbedaan Rerata Tekanan Darah Sistolik Sebelum dan Sesudah Pemberian Jus Mentimun Selama 7 Hari pada Lansia Hipertensi di Posyandu Lansia Kelurahan Cipinang Melayu",
+                    "Perbandingan Kadar Glukosa Darah Puasa Pre dan Post Intervensi Diet Mediterania Selama 4 Minggu pada Pasien DM Tipe 2 di Klinik Pratama Bekasi",
+                    "Perbedaan Rerata Skor Kecemasan (HARS) Pasien Pre-Operasi Katarak Sebelum dan Sesudah Edukasi Audiovisual di RS Mata Cicendo Bandung"
+                ]
+            },
+            "Mann-Whitney": {
+                desc: "Uji non-parametrik pengganti Independent T-Test.",
+                kapan: "Digunakan ketika data berupa angka (numerik) tapi tidak normal, atau data berskala ordinal (seperti skor Likert) pada 2 kelompok berbeda.",
+                syarat: ["Variabel dependen numerik tdk normal / ordinal", "2 Kelompok independen"],
+                spss: "Analyze > Nonparametric Tests > Legacy Dialogs > 2 Independent Samples > Centang Mann-Whitney U",
+                examples: [
+                    "Perbedaan Skor Kualitas Hidup (WHOQOL-BREF) antara Pasien Hemodialisis dan Pasien CAPD di Unit Dialisis RS Tipe A Yogyakarta",
+                    "Perbandingan Lama Penyembuhan Luka Pasca Sirkumsisi dengan Teknik Klem dan Dorsumsisi pada Anak Usia 6-12 Tahun di Klinik Kecamatan Cilandak",
+                    "Perbedaan Skor Derajat Kerusakan Histopatologi Hepar antara Tikus Kontrol dan Kelompok Induksi Parasetamol Dosis Toksik di Laboratorium Farmakologi Universitas X"
+                ]
+            },
+            "Wilcoxon": {
+                desc: "Uji non-parametrik pengganti Paired T-Test.",
+                kapan: "Digunakan untuk desain pre-post test jika data numerik berdistribusi tidak normal atau berskala ordinal (misal: skala VAS).",
+                syarat: ["Variabel dependen numerik tdk normal / ordinal", "2 Kelompok berpasangan"],
+                spss: "Analyze > Nonparametric Tests > Legacy Dialogs > 2 Related Samples > Centang Wilcoxon",
+                examples: [
+                    "Perbedaan Skor Nyeri (VAS) Pasien Osteoarthritis Lutut Sebelum dan Sesudah Terapi Kompres Jahe Hangat Selama 2 Minggu di Puskesmas Kramat Jati",
+                    "Perbandingan Skor Depresi (PHQ-9) Lansia Sebelum dan Sesudah Program Terapi Reminiscence Selama 8 Minggu di Panti Werdha Kota Tangerang",
+                    "Perbedaan Jumlah Koloni Bakteri pada Permukaan Meja Operasi Sebelum dan Sesudah Desinfeksi dengan Klorheksidin di Kamar Bedah RS Tipe C Depok"
+                ]
+            },
+            "One-Way ANOVA": {
+                desc: "Uji parametrik untuk membandingkan rerata >2 kelompok independen.",
+                kapan: "Digunakan saat membandingkan efek lebih dari dua intervensi berbeda (misal: Kontrol vs Dosis 1 vs Dosis 2) terhadap nilai numerik.",
+                syarat: ["Variabel dependen numerik", "> 2 Kelompok independen", "Distribusi data tiap kelompok normal", "Varian homogen (Levene's test p > 0.05)"],
+                spss: "Analyze > Compare Means > One-Way ANOVA",
+                examples: [
+                    "Perbedaan Rerata Diameter Zona Hambat Ekstrak Etanol Daun Kemangi terhadap Escherichia coli pada Konsentrasi 25%, 50%, 75%, dan 100%",
+                    "Perbandingan Rerata Kadar MDA Serum Tikus Sprague Dawley pada Kelompok Kontrol, Dosis 250 mg/kgBB, dan Dosis 500 mg/kgBB Ekstrak Temulawak",
+                    "Perbedaan Rerata Skor Pengetahuan Gizi Seimbang Siswa SMP yang Mendapat Edukasi dengan Metode Ceramah, Video, dan Permainan Kartu di Kota Tangerang Selatan"
+                ]
+            },
+            "Kruskal-Wallis": {
+                desc: "Uji non-parametrik pengganti One-Way ANOVA.",
+                kapan: "Digunakan bila terdapat >2 kelompok independen, namun distribusinya tidak normal atau datanya berbentuk ordinal (skala bertingkat).",
+                syarat: ["Variabel dependen numerik tdk normal / ordinal", "> 2 Kelompok independen"],
+                spss: "Analyze > Nonparametric Tests > Legacy Dialogs > K Independent Samples > Centang Kruskal-Wallis H",
+                examples: [
+                    "Perbedaan Skor Derajat Kerusakan Histopatologi Tubulus Ginjal (Skala 0-4) antar Lima Kelompok Perlakuan Ekstrak Herbal pada Tikus Model Nefrotoksik",
+                    "Perbandingan Tingkat Kepuasan Pasien (Skala Likert 1-5) terhadap Pelayanan di Empat Puskesmas Kecamatan di Kota Bekasi",
+                    "Perbedaan Skor Motivasi Belajar Mahasiswa Kedokteran Tingkat 1, 3, dan 5 di Universitas X dengan Distribusi Data Tidak Normal"
+                ]
+            },
+            "Repeated Measures ANOVA": {
+                desc: "Uji parametrik untuk >2 kelompok berpasangan.",
+                kapan: "Pengukuran berulang secara serial pada subjek yang sama (misal: menit 0, 30, 60) dengan hasil numerik normal.",
+                syarat: ["Variabel dependen numerik", "Pengukuran >2 kali (berpasangan)", "Distribusi data normal"],
+                spss: "Analyze > General Linear Model > Repeated Measures",
+                examples: [
+                    "Perbedaan Rerata Tekanan Intraokular Pasien Glaukoma pada Minggu ke-0, ke-4, dan ke-8 Terapi Timolol di Poliklinik Mata RS Tipe A Makassar",
+                    "Perbandingan Kadar Kortisol Saliva Mahasiswa Kedokteran pada Fase Pre-Ujian, Saat Ujian, dan Post-Ujian Blok Neurologi di Universitas X",
+                    "Perbedaan Rerata Berat Badan Tikus Wistar pada Hari ke-0, ke-14, dan ke-28 Pemberian Diet Tinggi Fruktosa"
+                ]
+            },
+            "Friedman": {
+                desc: "Uji non-parametrik pengganti Repeated Measures ANOVA.",
+                kapan: "Pengukuran berulang >2 kali pada subjek yang sama, namun data berdistribusi tidak normal atau berskala ordinal.",
+                syarat: ["Variabel dependen numerik tdk normal / ordinal", "Pengukuran >2 kali (berpasangan)"],
+                spss: "Analyze > Nonparametric Tests > Legacy Dialogs > K Related Samples > Centang Friedman",
+                examples: [
+                    "Perbedaan Skor Nyeri (NRS) Pasien Pasca Seksio Sesarea pada Jam ke-6, ke-12, dan ke-24 di Ruang Nifas RS Tipe B Palembang",
+                    "Perbandingan Skor Kepuasan Pasien Rawat Jalan terhadap Pelayanan Pendaftaran, Pemeriksaan, dan Farmasi di Puskesmas Kecamatan Matraman Jakarta Timur",
+                    "Perbedaan Derajat Inflamasi Histopatologi Mukosa Lambung Tikus pada Pengamatan Hari ke-7, ke-14, dan ke-21 Pasca Induksi Aspirin"
+                ]
+            },
+            "Pearson": {
+                desc: "Uji parametrik korelasi murni antar 2 variabel numerik.",
+                kapan: "Ingin mengetahui keeratan (r) dan arah hubungan dua variabel numerik berskala rasio/interval (misal korelasi IMT dan Hb).",
+                syarat: ["Kedua variabel berjenis numerik", "Keduanya berdistribusi normal", "Hubungan bersifat linear"],
+                spss: "Analyze > Correlate > Bivariate > Centang Pearson",
+                examples: [
+                    "Korelasi antara Indeks Massa Tubuh dengan Tekanan Darah Sistolik pada Pekerja Pabrik Garmen Usia 20-50 Tahun di Kabupaten Purwakarta",
+                    "Hubungan antara Durasi Tidur dengan Kadar Kortisol Pagi Hari pada Mahasiswa Tingkat Akhir di Universitas X",
+                    "Korelasi antara Asupan Kalori Harian dengan Lingkar Pinggang pada Pasien Rawat Jalan Poli Gizi RS Tipe B Jakarta Timur"
+                ]
+            },
+            "Spearman": {
+                desc: "Uji korelasi non-parametrik (Rank Spearman).",
+                kapan: "Pengganti Pearson jika data tidak normal, atau menghubungkan dua variabel berskala ordinal (misal: tingkat pengetahuan & tingkat kepatuhan).",
+                syarat: ["Variabel numerik tidak normal, atau variabel ordinal"],
+                spss: "Analyze > Correlate > Bivariate > Centang Spearman",
+                examples: [
+                    "Korelasi antara Tingkat Stres (Ringan/Sedang/Berat) dengan Kualitas Tidur pada Residen Bedah di RS Pendidikan Kota Surabaya",
+                    "Hubungan antara Derajat Keparahan Akne Vulgaris dengan Skor Kualitas Hidup Dermatologi (DLQI) pada Remaja di Klinik Kulit Kota Malang",
+                    "Korelasi antara Skor Kepatuhan Minum Obat (MMAS-8) dengan Skor Kontrol Asma (ACT) pada Pasien Asma Dewasa di Poliklinik Paru RS Tipe B Denpasar"
+                ]
+            },
+            "Regresi Linear": {
+                desc: "Uji untuk memodelkan dan memprediksi nilai numerik.",
+                kapan: "Bila peneliti ingin membuat persamaan matematis untuk memprediksi nilai Y (numerik) dari variabel X (bisa numerik/kategorik).",
+                syarat: ["Variabel dependen: Numerik", "Hubungan linear, sisaan (residual) normal, homoskedastisitas"],
+                spss: "Analyze > Regression > Linear",
+                examples: [
+                    "Prediksi Kadar Hemoglobin Ibu Hamil Trimester III Berdasarkan Asupan Zat Besi Harian di Puskesmas Kecamatan Pasar Minggu Jakarta Selatan",
+                    "Model Prediksi Lama Rawat Inap Pasien Demam Berdarah Dengue Berdasarkan Kadar Trombosit Saat Admisi di RS Tipe B Kota Semarang",
+                    "Prediksi Skor Fungsi Kognitif (MoCA-INA) Lansia Berdasarkan Durasi Aktivitas Fisik Mingguan di Posyandu Lansia Kecamatan Menteng Jakarta Pusat"
+                ]
+            }
+        };
+
+        // --- STATE MANAGEMENT ---
+        let currentPath = [];
+        const totalStepsEst = 4; // Estimasi rata-rata kedalaman pohon
+        
+        // --- UI LOGIC ---
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            if(tabId === 'tab-tree' && currentPath.length === 0) {
+                startTree();
+            }
+        }
+
+        function toggleAccordion(header) {
+            const body = header.nextElementSibling;
+            const isOpen = body.classList.contains('open');
+            
+            document.querySelectorAll('.accordion-body').forEach(el => el.classList.remove('open'));
+            document.querySelectorAll('.accordion-header span').forEach(el => el.textContent = '▼');
+            
+            if (!isOpen) {
+                body.classList.add('open');
+                header.querySelector('span').textContent = '▲';
+            }
+        }
+
+        // --- TREE LOGIC ---
+        function startTree() {
+            currentPath = [];
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('result-container').style.display = 'none';
+            renderNode('start');
+        }
+
+        function renderNode(nodeKey) {
+            const node = treeData[nodeKey];
+            const qEl = document.getElementById('question');
+            const cEl = document.getElementById('choices');
+            
+            qEl.textContent = node.text;
+            cEl.innerHTML = '';
+            
+            node.choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+                btn.innerHTML = choice.label;
+                
+                if(choice.hint) {
+                    btn.innerHTML += `<span class="hint">${choice.hint}</span>`;
+                }
+                
+                btn.onclick = () => {
+                    currentPath.push({ key: nodeKey, label: choice.label });
+                    if(choice.next) renderNode(choice.next);
+                    else showResult(choice.result);
+                };
+                cEl.appendChild(btn);
+            });
+            
+            renderBreadcrumb();
+            updateProgress();
+        }
+
+        function renderBreadcrumb() {
+            const bc = document.getElementById('breadcrumb');
+            bc.innerHTML = '';
+            
+            let crumbHTML = `<span class="crumb" onclick="startTree()">Awal</span>`;
+            
+            currentPath.forEach((step, index) => {
+                crumbHTML += `<span class="crumb-sep">></span>`;
+                crumbHTML += `<span class="crumb" onclick="jumpToPath(${index})">${step.label}</span>`;
+            });
+            
+            bc.innerHTML = crumbHTML;
+        }
+
+        function jumpToPath(index) {
+            const step = currentPath[index];
+            currentPath = currentPath.slice(0, index);
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('result-container').style.display = 'none';
+            renderNode(step.key);
+        }
+
+        function updateProgress() {
+            let stepNum = currentPath.length + 1;
+            document.getElementById('progress-text').textContent = `Langkah ${stepNum}`;
+        }
+
+        function formatSPSS(path) {
+            return path.split(' > ').map(p => `<span>${p}</span>`).join(' > ');
+        }
+
+        function showResult(testName, event = null) {
+            if(event) {
+                event.preventDefault();
+                openTab('tab-tree');
+                document.querySelector('[onclick="openTab(\'tab-tree\')"]').classList.add('active');
+                document.querySelector('[onclick="openTab(\'tab-rangkuman\')"]').classList.remove('active');
+            }
+            
+            document.getElementById('quiz-container').style.display = 'none';
+            const resEl = document.getElementById('result-container');
+            resEl.style.display = 'block';
+            
+            const data = resultData[testName];
+            document.getElementById('result-name').textContent = testName;
+            document.getElementById('result-desc').textContent = data.desc;
+            document.getElementById('result-kapan').textContent = data.kapan;
+            
+            document.getElementById('result-syarat').innerHTML = data.syarat.map(s => `<li>${s}</li>`).join('');
+            document.getElementById('result-spss').innerHTML = formatSPSS(data.spss);
+            
+            document.getElementById('result-examples').innerHTML = data.examples.map(ex => `
+                <div class="card" style="font-size: 0.9rem; font-style: italic;">"${ex}"</div>
+            `).join('');
+            
+            // Search reset
+            document.getElementById('searchResults').style.display = 'none';
+            document.getElementById('searchInput').value = '';
+        }
+
+        // --- SEARCH LOGIC ---
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        
+        searchInput.addEventListener('input', function() {
+            const query = this.value.toLowerCase();
+            searchResults.innerHTML = '';
+            
+            if(query.length < 2) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            
+            let matches = Object.keys(resultData).filter(key => 
+                key.toLowerCase().includes(query) || 
+                resultData[key].desc.toLowerCase().includes(query) ||
+                resultData[key].kapan.toLowerCase().includes(query)
+            );
+            
+            if(matches.length > 0) {
+                searchResults.style.display = 'block';
+                matches.forEach(match => {
+                    let div = document.createElement('div');
+                    div.className = 'search-item';
+                    div.innerHTML = `<strong>${match}</strong><br><span style="font-size:0.8rem;color:var(--text-light)">${resultData[match].desc}</span>`;
+                    div.onclick = () => showResult(match);
+                    searchResults.appendChild(div);
+                });
+            } else {
+                searchResults.style.display = 'block';
+                searchResults.innerHTML = '<div class="search-item">Tidak ditemukan. Coba kata kunci lain.</div>';
+            }
+        });
+
+        // Clicks outside search close the dropdown
+        document.addEventListener('click', function(e) {
+            if(!e.target.closest('.search-container')) {
+                searchResults.style.display = 'none';
+            }
+        });
+
+        // --- DARK MODE LOGIC ---
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            const html = document.documentElement;
+            if(html.getAttribute('data-theme') === 'light') {
+                html.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '☀️';
+            } else {
+                html.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '🌙';
+            }
+        });
+
+        // Init
+        startTree();
+    </script>
+</body>
+</html>
